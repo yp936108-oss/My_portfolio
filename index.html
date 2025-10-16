@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portfolio - Y Prashanth</title>
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <!-- Icons -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0; padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background: radial-gradient(circle at top left, #0f0f0f, #1c1c1c, #000);
+      color: #fff;
+      min-height: 100vh;
+      padding-top: 80px;
+    }
+
+    /* Profile name */
+    .profile-name {
+      position: fixed;
+      top: 20px;
+      left: 30px;
+      font-size: 26px;
+      font-weight: 700;
+      color: #FFD700;
+      text-shadow: 0 0 8px #FFD700, 0 0 15px #FFD700;
+      z-index: 1000;
+      letter-spacing: 2px;
+    }
+
+    /* Navbar */
+    .navbar {
+      position: fixed;
+      top: 0; left: 0; width: 100%;
+      background: rgba(20,20,20,0.95);
+      backdrop-filter: blur(10px);
+      padding: 15px 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 50px;
+      box-shadow: 0 4px 20px rgba(255, 215, 0, 0.1);
+      z-index: 999;
+    }
+
+    .navbar a {
+      color: #ccc;
+      text-decoration: none;
+      font-size: 18px;
+      font-weight: 500;
+      transition: 0.3s;
+      position: relative;
+    }
+
+    .navbar a:hover {
+      color: #FFD700;
+      font-weight: 700;
+      text-decoration: underline;
+    }
+
+    .navbar i {
+      color: #FFD700;
+      margin-right: 8px;
+    }
+
+    /* Section */
+    .section {
+      max-width: 1100px;
+      margin: 60px auto;
+      padding: 40px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 15px;
+      box-shadow: 0 0 20px rgba(255, 215, 0, 0.1);
+    }
+
+    .section h1 {
+      color: #FFD700;
+      border-bottom: 3px solid #FFD700;
+      margin-bottom: 20px;
+      padding-bottom: 8px;
+    }
+
+    /* About */
+    .about-content {
+      display: flex;
+      align-items: center;
+      gap: 30px;
+      flex-wrap: wrap;
+    }
+
+    .about-content img {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      border: 3px solid #FFD700;
+      object-fit: cover;
+      box-shadow: 0 0 15px #FFD700;
+    }
+
+    .about-content p {
+      line-height: 1.8;
+      color: #ccc;
+    }
+
+    /* Projects */
+    .project-card {
+      background: rgba(255, 255, 255, 0.1);
+      margin: 20px 0;
+      padding: 20px;
+      border-left: 5px solid #FFD700;
+      border-radius: 10px;
+      transition: 0.3s;
+    }
+
+    .project-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+    }
+
+    .project-card h3 {
+      color: #FFD700;
+    }
+
+    /* Skills */
+    .skills-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 20px;
+      list-style: none;
+      margin-top: 20px;
+    }
+
+    .skills-list li {
+      background: #111;
+      border: 2px solid #FFD700;
+      padding: 15px;
+      border-radius: 10px;
+      text-align: center;
+      color: #FFD700;
+      font-weight: 600;
+      transition: 0.3s;
+    }
+
+    .skills-list li:hover {
+      background: #FFD700;
+      color: #000;
+      transform: scale(1.05);
+    }
+
+    .skills-list i {
+      display: block;
+      font-size: 28px;
+      margin-bottom: 8px;
+    }
+
+    /* Recommendations */
+    .recommendation-card {
+      background: rgba(255, 255, 255, 0.08);
+      border-left: 5px solid #FFD700;
+      padding: 20px;
+      border-radius: 10px;
+      margin-bottom: 15px;
+    }
+
+    .recommendation-card span {
+      display: block;
+      margin-top: 10px;
+      font-style: italic;
+      color: #FFD700;
+    }
+
+    #new-recommendation {
+      margin-top: 20px;
+    }
+
+    #recommendation-input {
+      width: 80%;
+      padding: 10px;
+      border-radius: 5px;
+      border: none;
+      outline: none;
+      background: #111;
+      color: #FFD700;
+    }
+
+    #add-btn {
+      background: #FFD700;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 5px;
+      color: #000;
+      font-weight: 600;
+      cursor: pointer;
+      margin-left: 10px;
+      transition: 0.3s;
+    }
+
+    #add-btn:hover {
+      background: #ffea00;
+    }
+
+    /* Popup */
+    .popup {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(0,0,0,0.9);
+      padding: 30px;
+      border-radius: 10px;
+      color: #FFD700;
+      font-size: 20px;
+      box-shadow: 0 0 20px #FFD700;
+      z-index: 2000;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      color: #FFD700;
+      font-size: 14px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="profile-name">Y Prashanth</div>
+
+  <nav class="navbar">
+    <a href="#home"><i class="fa-solid fa-house"></i>Home</a>
+    <a href="#about">About</a>
+    <a href="#projects">Project Details</a>
+    <a href="#skills">Skills</a>
+    <a href="#recommendations">Recommendations</a>
+  </nav>
+
+  <!-- About -->
+  <section id="about" class="section">
+    <h1>About Me</h1>
+    <div class="about-content">
+      <img src="pra.jpg" alt="Profile Picture">
+      <p>
+        Hi, I’m <b>Y Prashanth</b>, a final year student of <b>Electronics and Telecommunication Engineering</b> at <b>Dayananda Sagar College of Engineering</b>, Raichur.  
+        Passionate about technology, innovation, and problem-solving.  
+        My interests span IoT, Web Development, Data Analysis, and AI-driven systems.
+      </p>
+    </div>
+  </section>
+
+  <!-- Projects -->
+  <section id="projects" class="section">
+    <h1>Project Details</h1>
+    <div class="project-card">
+      <h3>IoT-based Health Monitoring System</h3>
+      <p>Developed a real-time patient monitoring system using IoT sensors to measure and analyze health data remotely.</p>
+    </div>
+    <div class="project-card">
+      <h3>Advanced IoT Project</h3>
+      <p>Designed an advanced smart-home automation system integrating multiple IoT modules and sensors.</p>
+    </div>
+    <div class="project-card">
+      <h3>Massive MIMO Communication System</h3>
+      <p>Implemented a simulation of Massive MIMO architecture improving signal strength and bandwidth efficiency.</p>
+    </div>
+  </section>
+
+  <!-- Skills -->
+  <section id="skills" class="section">
+    <h1>Skills</h1>
+    <ul class="skills-list">
+      <li><i class="fa-brands fa-html5"></i>Web Development</li>
+      <li><i class="fa-solid fa-database"></i>Data Analysis</li>
+      <li><i class="fa-solid fa-diagram-project"></i>Project Management</li>
+      <li><i class="fa-solid fa-code"></i>Python, Java</li>
+      <li><i class="fa-solid fa-cubes"></i>DSA</li>
+    </ul>
+  </section>
+
+  <!-- Recommendations -->
+  <section id="recommendations" class="section">
+    <h1>Recommendations</h1>
+    <div class="recommendation-card">
+      <p>"Prashanth is an exceptional team player with deep technical understanding."</p>
+      <span>- Dr. Ramesh, Professor</span>
+    </div>
+    <div class="recommendation-card">
+      <p>"Very professional, reliable, and innovative in project work."</p>
+      <span>- Client A</span>
+    </div>
+    <div class="recommendation-card">
+      <p>"Always delivers beyond expectations with a positive attitude."</p>
+      <span>- Project Mentor</span>
+    </div>
+
+    <div id="new-recommendation">
+      <input type="text" id="recommendation-input" placeholder="Write a new recommendation..." />
+      <button id="add-btn">Add</button>
+    </div>
+  </section>
+
+  <!-- Popup -->
+  <div id="popup" class="popup">Thank you for leaving a recommendation!</div>
+
+  <footer>
+    <p>&copy; 2025 Y Prashanth | Dayananda Sagar College of Engineering | Raichur</p>
+  </footer>
+
+  <script>
+    document.getElementById("add-btn").addEventListener("click", () => {
+      const input = document.getElementById("recommendation-input");
+      if (input.value.trim() !== "") {
+        const div = document.createElement("div");
+        div.className = "recommendation-card";
+        div.innerHTML = `<p>"${input.value}"</p><span>- New Recommendation</span>`;
+        document.querySelector("#recommendations").insertBefore(div, document.getElementById("new-recommendation"));
+        input.value = "";
+
+        const popup = document.getElementById("popup");
+        popup.style.display = "block";
+        setTimeout(() => popup.style.display = "none", 2000);
+      }
+    });
+  </script>
+</body>
+</html>
